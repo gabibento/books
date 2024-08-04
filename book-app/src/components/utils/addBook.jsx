@@ -3,32 +3,22 @@ import { addDoc, collection, doc, getDocs, query, where } from "firebase/firesto
 
 export const addBook = async (userId, bookshelf, bookId, book, navigate) => {
 
-    console.log("User ID:", userId);
-    console.log("Bookshelf:", bookshelf);
-    console.log("Book ID:", bookId);
-
-
-
    if(userId && bookshelf){
      //references the user's bookshelves collection
     const bookshelvesRef = collection(db, "users", userId, "bookshelves")
-    console.log("Bookshelves Ref:", bookshelvesRef);
 
     if(bookshelvesRef){
         //references the specific bookshelf
         const shelfRef = doc(bookshelvesRef, bookshelf)
-        console.log("Shelf Ref:", shelfRef);
         
         try{
             //queries the selected shelf for the book with the same id
-            const booksCollectionRef = collection(shelfRef, "books");
-            console.log("Books Collection Ref:", booksCollectionRef);
-            
+            const booksCollectionRef = collection(shelfRef, "books")  
             //query to check if the book with the same id already exists
             const bookQuery = query(booksCollectionRef, where("id", "==", bookId));
-            console.log("Book Query:", bookQuery);
+            
             const bookSnapshot = await getDocs(bookQuery);
-            console.log("Book Snapshot:", bookSnapshot);
+           
             if(!bookSnapshot.empty){
                 //if the query returns results, the book is already on the shelf
                 console.log('This book is already on the shelf.');

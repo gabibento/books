@@ -1,12 +1,12 @@
 import React from 'react'
 import Nav from './Nav'
-import BookCard from '../BookCard'
+import BookList from '../BookList'
 
 const Home = () => {
   return (
     <div>
         <Nav></Nav>
-        <BookCard></BookCard>
+        <BookList></BookList>
     </div>
   )
 }
