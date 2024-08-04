@@ -79,8 +79,8 @@ const Bookshelf = () => {
             {books.length === 0 ? (
                 <p>No books found</p>
             ) : (
-                books.map((book) => (
-                    <div key={book.id}>
+                books.map((book, index) => (
+                    <div key={index}>
                         <ul>
                             <li>{book.id}</li>
                             <li>{book.title}</li>

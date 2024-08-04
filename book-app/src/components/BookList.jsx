@@ -5,6 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import UserIdContext from './contexts/UserIdContext';
 import { addBook } from './utils/addBook';
 import { useNavigate } from 'react-router-dom';
+import SelectBookshelf from './SelectBookshelf';
 
 const BookList = () => {
 
@@ -30,31 +31,24 @@ const BookList = () => {
         fetchBooks()
     }, [])
 
-    const handleBookshelfChange = (event, book) => {
-        const selectedBookshelf = event.target.value;
-
-        if (selectedBookshelf && book) {
-            addBook(userId, selectedBookshelf, book.id, book, navigate);
-        }
-    };
+    
+    const navigateBook = (bookId) => {
+        navigate(`/book/${bookId}`)
+    }
 
   return (
     <div>
 
         {books.map((book, index) => (
             <ul key={index}>
-                <li>{book.id}</li>
-                <li><img src={book.cover} alt="" /></li>
-                <li><strong>{book.title}</strong></li>
-                <li>{book.author}</li>
-                <li>{book.genre}</li>
-
-                <select name="bookshelf" onChange={(event) => handleBookshelfChange(event, book)}>
-                    <option value="">Add to bookshelf</option>
-                    <option value="toberead">To be read</option>
-                    <option value="reading">Currently reading</option>
-                    <option value="read">Read</option>
-                </select>
+                <div onClick={() => navigateBook(book.id)}>
+                    <li>{book.id}</li>
+                    <li><img src={book.cover} alt="" /></li>
+                    <li><strong>{book.title}</strong></li>
+                    <li>{book.author}</li>
+                    <li>{book.genre}</li>
+                </div>
+              <SelectBookshelf userId={userId} bookId={book.id} book={book}></SelectBookshelf>
             </ul>   
             
         ))}
