@@ -25,7 +25,7 @@ export const addBook = async (userId, bookshelf, bookId, book, navigate) => {
                 return
         }
             await addDoc(collection(shelfRef, "books"), book)
-            console.log("Book successfully added to shelf!")
+            console.log("Book successfully added to shelf! " + bookId)
 
         }catch(e){
             console.error("Error adding book to shelf: " + e)

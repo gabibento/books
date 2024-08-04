@@ -18,7 +18,6 @@ const Bookshelf = () => {
            querySnapshot.forEach((doc) => {
                 const data = doc.data()
                 data.docId = doc.id
-                console.log(data.docId)
                 booksData.push(data)
             })
             setBooks(booksData)
@@ -34,7 +33,7 @@ const Bookshelf = () => {
 
     useEffect(() => {
       fetchBooks()
-    }, [bookshelf, userId])
+    }, [bookshelf])
 
     const defineBookshelf = (e) => {
       setBookshelf(e.target.id)
@@ -64,6 +63,9 @@ const Bookshelf = () => {
         console.error('User ID or bookshelf not defined')
     }
    }
+   const navigateBook = (bookId) => {
+    navigate(`/book/${bookId}`)
+   }
 
   return (
     <div>
@@ -81,7 +83,7 @@ const Bookshelf = () => {
             ) : (
                 books.map((book, index) => (
                     <div key={index}>
-                        <ul>
+                        <ul onClick={() => navigateBook(book.id)}>
                             <li>{book.id}</li>
                             <li>{book.title}</li>
                             <li><img src={book.cover} alt={book.title} /></li>

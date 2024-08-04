@@ -14,9 +14,11 @@ const Book = () => {
         const fetchBook = async () => {
            try{
             const bookDoc = await getDoc(doc(db, "books", id))
+            const data = bookDoc.data()
+            data.id = id
 
             if(bookDoc.exists){
-                setBook(bookDoc.data())
+                setBook(data)
             }else{
                 console.log('Book does not exist');
             }
@@ -36,7 +38,8 @@ const Book = () => {
         <img src={book.cover} alt="" />
         <p>{book.author}</p>
         <p>{book.genre}</p>
-        <SelectBookshelf userId={userId} bookId={id} book={book}></SelectBookshelf>
+        <p>book id: {book.id}</p>
+        <SelectBookshelf userId={userId} bookId={book.id} book={book}></SelectBookshelf>
         <a href={book.link}>Buy now</a>
         <p>{book.synopsis}</p>
 
