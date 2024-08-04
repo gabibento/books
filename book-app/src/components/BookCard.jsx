@@ -1,11 +1,16 @@
 import React from 'react'
-import { useEffect, useState } from 'react';
-import { db } from '../../firebaseConfig'
+import { useEffect, useState, useContext } from 'react';
+import { db } from '../firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore';
+import UserIdContext from './contexts/UserIdContext';
+import { addBook } from './utils/addBook';
+import { useNavigate } from 'react-router-dom';
 
 const BookCard = () => {
 
     const [books, setBooks] = useState([])
+    const { userId } = useContext(UserIdContext);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -25,6 +30,14 @@ const BookCard = () => {
         fetchBooks()
     }, [])
 
+    const handleBookshelfChange = (event, book) => {
+        const selectedBookshelf = event.target.value;
+
+        if (selectedBookshelf && book) {
+            addBook(userId, selectedBookshelf, book.id, book, navigate);
+        }
+    };
+
   return (
     <div>
         {books.map((book, index) => (
@@ -34,7 +47,15 @@ const BookCard = () => {
                 <li><strong>{book.title}</strong></li>
                 <li>{book.author}</li>
                 <li>{book.genre}</li>
+
+                <select name="bookshelf" onChange={(event) => handleBookshelfChange(event, book)}>
+                    <option value="">Add to bookshelf</option>
+                    <option value="toberead">To be read</option>
+                    <option value="reading">Currently reading</option>
+                    <option value="read">Read</option>
+                </select>
             </ul>   
+            
         ))}
        
     </div>
