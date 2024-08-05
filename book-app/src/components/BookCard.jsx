@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import UserIdContext from './contexts/UserIdContext'
 import SelectBookshelf from './SelectBookshelf'
-import { Card, CardHeader, CardBody, CardFooter, Stack, Divider, Text, Image, Heading, ButtonGroup, Button, SimpleGrid } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, Stack, Text, Image, Heading, SimpleGrid, Badge } from '@chakra-ui/react'
 
 const BookCard = ({books}) => {
 
@@ -13,6 +13,24 @@ const BookCard = ({books}) => {
     const navigateBook = (bookId) => {
         navigate(`/book/${bookId}`)
     }
+
+    const getBadgeColor = (genre) => {
+      switch (genre.toLowerCase()) {
+        case 'romance':
+          return 'purple';
+        case 'fiction':
+          return 'blue';
+        case 'non-fiction':
+          return 'green';
+        case 'mystery':
+          return 'red';
+        case 'fantasy':
+          return 'yellow';
+        default:
+          return 'gray';
+      }
+    };
+    
 
   return (
     <div>
@@ -26,7 +44,8 @@ const BookCard = ({books}) => {
             borderColor='gray.100' 
             borderStyle='solid'
             _hover={{ 
-              boxShadow: 'lg', 
+              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', 
+              borderColor: 'gray.200', 
               transition: 'all 0.3s ease-in-out',
               cursor: 'pointer'
             }}>
@@ -40,9 +59,9 @@ const BookCard = ({books}) => {
                     alignSelf="center"
                   />
                   <Stack mt='6' spacing='2'>
-                    <Heading size='md'>{book.title}</Heading>
-                    <Text>{book.author}</Text>
-                    <Text>{book.genre}</Text>
+                    <Heading fontSize='1em' minHeight="2.85em">{book.title}</Heading>
+                    <Text minHeight='1em'>{book.author}</Text>
+                    <Badge minHeight='1em' colorScheme={getBadgeColor(book.genre)} size='sm' width='fit-content'>{book.genre}</Badge>
                   </Stack>
                 </CardBody>
                 <CardFooter mt='0' pt='0'>
