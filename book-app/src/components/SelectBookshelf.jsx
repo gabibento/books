@@ -1,25 +1,43 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { addBook } from './utils/addBook';
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Button,
+
+} from '@chakra-ui/react'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 
 const SelectBookshelf = ({userId, bookId, book}) => {
 
     const navigate = useNavigate()
 
-    const handleBookshelfChange = (event, book) => {
-        const selectedBookshelf = event.target.value;
+    const handleBookshelfChange = (bookshelf) => {
 
-        if (selectedBookshelf && book) {
-            addBook(userId, selectedBookshelf, bookId, book, navigate);
+        if (bookshelf && book) {
+            addBook(userId, bookshelf, bookId, book, navigate);
         }
     }
   return (
-    <select name="bookshelf" onChange={(event) => handleBookshelfChange(event, book)}>
-        <option value="">Add to bookshelf</option>
-        <option value="toberead">To be read</option>
-        <option value="reading">Currently reading</option>
-        <option value="read">Read</option>
-    </select>
+    <>
+    <Menu>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+        Add to bookshelf
+      </MenuButton>
+      <MenuList>
+        <MenuItem onClick={() => handleBookshelfChange('toberead')}>To be read</MenuItem>
+        <MenuItem onClick={() => handleBookshelfChange('reading')}>Currently reading</MenuItem>
+        <MenuItem onClick={() => handleBookshelfChange('read')}>Read</MenuItem>
+      </MenuList>
+    </Menu>
+    </>
   )
 }
 

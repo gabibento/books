@@ -4,6 +4,7 @@ import { db } from '../../firebaseConfig'
 import { getDocs, collection, deleteDoc, query, where, doc } from 'firebase/firestore'
 import UserIdContext from '../contexts/UserIdContext'
 import Search from '../contexts/Search'
+import { Tabs, TabList, Tab } from '@chakra-ui/react'
 
 const Bookshelf = () => {
     const [books, setBooks] = useState([])
@@ -37,9 +38,6 @@ const Bookshelf = () => {
       fetchBooks()
     }, [bookshelf])
 
-    const defineBookshelf = (e) => {
-      setBookshelf(e.target.id)
-    }
     const removeBook = async (bookDocId, bookId) => {
       if (userId && bookshelf) {
         const bookshelvesRef = collection(db, "users", userId, "bookshelves")
@@ -68,18 +66,24 @@ const Bookshelf = () => {
    const navigateBook = (bookId) => {
     navigate(`/book/${bookId}`)
    }
+   const handleTabChange = (index) => {
+    const tabs = ['allbooks', 'toberead', 'reading', 'read'];
+    setBookshelf(tabs[index]);
+  }
 
   return (
     <div>
-      <div>
-        <ul>
-            <li id="allbooks" onClick={defineBookshelf}>All</li>
-            <li id="toberead" onClick={defineBookshelf}>To be read</li>
-            <li id="reading" onClick={defineBookshelf}>Currently reading</li>
-            <li id="read" onClick={defineBookshelf}>Read</li>
-        </ul>
-      </div>
       <Search books={books} setBooks={setBooks} allbooks={allbooks}></Search>
+
+      <Tabs isFitted variant='enclosed' onChange={handleTabChange}>
+        <TabList mb='1em'>
+          <Tab>All</Tab>
+          <Tab>To be read</Tab>
+          <Tab>Currently reading</Tab>
+          <Tab>Read</Tab>
+        </TabList>
+      </Tabs>
+      
          <div>
             {books.length === 0 ? (
                 <p>No books found</p>
