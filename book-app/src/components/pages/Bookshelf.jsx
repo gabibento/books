@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebaseConfig'
 import { getDocs, collection, deleteDoc, query, where, doc } from 'firebase/firestore'
 import UserIdContext from '../contexts/UserIdContext'
+import Search from '../contexts/Search'
 
 const Bookshelf = () => {
     const [books, setBooks] = useState([])
+    const [allbooks, setAllbooks] = useState([])
     const [bookshelf, setBookshelf] = useState('allbooks')
     const { userId } = useContext(UserIdContext)
     const navigate = useNavigate()
@@ -21,7 +23,7 @@ const Bookshelf = () => {
                 booksData.push(data)
             })
             setBooks(booksData)
-        
+            setAllbooks(booksData)
         }catch(e){
             console.error("Error fetching books " + e)
         }
@@ -77,6 +79,7 @@ const Bookshelf = () => {
             <li id="read" onClick={defineBookshelf}>Read</li>
         </ul>
       </div>
+      <Search books={books} setBooks={setBooks} allbooks={allbooks}></Search>
          <div>
             {books.length === 0 ? (
                 <p>No books found</p>

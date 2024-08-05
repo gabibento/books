@@ -3,10 +3,12 @@ import { useEffect, useState, useContext } from 'react';
 import { db } from '../firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore';
 import BookCard from './BookCard';
+import Search from './contexts/Search';
 
 const BookList = () => {
 
     const [books, setBooks] = useState([])
+    const [allbooks, setAllbooks] = useState([])
   
     useEffect(() => {
         const fetchBooks = async () => {
@@ -19,6 +21,7 @@ const BookList = () => {
                 booksData.push(bookData)
             })
             setBooks(booksData)
+            setAllbooks(booksData)
            }catch(e){
             console.log("Error fetching books: " + e)
            }
@@ -26,9 +29,12 @@ const BookList = () => {
         fetchBooks()
     }, [])
 
+
+
     
   return (
     <div>
+      <Search books={books} setBooks={setBooks} allbooks={allbooks}></Search>
 
       <BookCard books={books}></BookCard>
        
