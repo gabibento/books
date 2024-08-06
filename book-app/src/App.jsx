@@ -5,14 +5,44 @@ import Bookshelf from "./components/pages/Bookshelf";
 import Book from "./components/pages/Book";
 import GenreList from "./components/GenreList";
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import NavMenu from "./components/NavMenu";
+
+import { useEffect, useState } from 'react';
+import { db } from './firebaseConfig'
+import { collection, getDocs } from 'firebase/firestore';
 
 function App() {
+
+  const [books, setBooks] = useState([])
+    const [allbooks, setAllbooks] = useState([])
+  
+    useEffect(() => {
+        const fetchBooks = async () => {
+           try{
+            const querySnapshot = await getDocs(collection(db, "books"))
+            const booksData = []
+            querySnapshot.forEach((doc) => {
+                const bookData = doc.data()
+                bookData.id = doc.id
+                booksData.push(bookData)
+            })
+            setBooks(booksData)
+            setAllbooks(booksData)
+           }catch(e){
+            console.log("Error fetching books: " + e)
+           }
+        }
+        fetchBooks()
+    }, [])
+
  
   return (
     <>
+   
     <Router>
+    <NavMenu books={books} setBooks={setBooks} allbooks={allbooks}></NavMenu>
       <Routes>
-        <Route path="/" element={<Home/>}></Route>
+        <Route path="/" element={<Home books={books}/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/signup' element={<Signup/>}></Route>
         <Route path="/bookshelf" element={<Bookshelf/>}></Route>

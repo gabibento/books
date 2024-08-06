@@ -1,9 +1,9 @@
 import React from 'react'
 import Nav from './Nav'
-import BookList from '../BookList'
+import BookCard from '../BookCard'
 import { useNavigate } from 'react-router-dom'
 
-const Home = () => {
+const Home = ({books}) => {
   const navigate = useNavigate()
 
   const navigateGenre = (e) => {
@@ -12,12 +12,12 @@ const Home = () => {
   }
   return (
     <div>
-        <Nav></Nav>
+
         <ul>
           <li id='romance' onClick={navigateGenre}>Romance</li>
           <li id='fantasy' onClick={navigateGenre}>Fantasy</li>
         </ul>
-        <BookList></BookList>
+        <BookCard books={books}></BookCard>
     </div>
   )
 }
