@@ -1,4 +1,5 @@
 import React from 'react';
+import { Input } from '@chakra-ui/react'
 
 const Search = ({books, setBooks, allbooks}) => {
 
@@ -21,6 +22,7 @@ const Search = ({books, setBooks, allbooks}) => {
   return (
     <div>
         <input type="text" id='search' onChange={(event) => handleChange(event)} />
+        <Input size='sm' width='80%' alignContent='center'></Input>
     </div>
   )
 }

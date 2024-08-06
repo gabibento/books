@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import { db } from '../firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore';
 import BookCard from './BookCard';
-import Search from './contexts/Search';
+import Search from './Search';
 
 const BookList = () => {
 
