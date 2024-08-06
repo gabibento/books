@@ -1,0 +1,15 @@
+.card-custom{
+    height: 100%;
+    border: 1px solid #e2e8f0;
+}
+.card-custom:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e0;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+.card-image{
+    border-radius: var(--chakra-radii-lg);
+    object-fit: cover;
+    align-self: center;
+}

@@ -5,6 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import BookCard from './BookCard';
 import Search from './Search';
 
+
 const BookList = () => {
 
     const [books, setBooks] = useState([])
@@ -28,8 +29,6 @@ const BookList = () => {
         }
         fetchBooks()
     }, [])
-
-
 
     
   return (

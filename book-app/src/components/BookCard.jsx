@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import UserIdContext from './contexts/UserIdContext'
 import SelectBookshelf from './SelectBookshelf'
 import { Card, CardBody, CardFooter, Stack, Text, Image, Heading, SimpleGrid, Badge } from '@chakra-ui/react'
+import styles from './BookCard.module.css'
 
 const BookCard = ({books}) => {
 
@@ -38,25 +39,13 @@ const BookCard = ({books}) => {
         {books.map((book, index) => (
           <div key={index}>
           
-            <Card maxW='sm' 
-            height="100%"
-            borderWidth='1px' 
-            borderColor='gray.100' 
-            borderStyle='solid'
-            _hover={{ 
-              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', 
-              borderColor: 'gray.200', 
-              transition: 'all 0.3s ease-in-out',
-              cursor: 'pointer'
-            }}>
+            <Card maxW='sm' className={styles['card-custom']} >
                 <CardBody onClick={() => navigateBook(book.id)}>
                   <Image
                     src={book.cover}
                     alt='book cover'
-                    borderRadius='lg'
-                    boxSize="20em" 
-                    objectFit="cover" 
-                    alignSelf="center"
+                    boxSize='20em'
+                    className={styles['card-image']}
                   />
                   <Stack mt='6' spacing='2'>
                     <Heading fontSize='1em' minHeight="2.85em">{book.title}</Heading>

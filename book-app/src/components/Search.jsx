@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input } from '@chakra-ui/react'
+import styles from './Search.module.css'
 
 const Search = ({books, setBooks, allbooks}) => {
 
@@ -20,10 +21,15 @@ const Search = ({books, setBooks, allbooks}) => {
     }
 
   return (
-    <div>
-        <input type="text" id='search' onChange={(event) => handleChange(event)} />
-        <Input size='sm' width='80%' alignContent='center'></Input>
+    <div className={styles.container}>
+    <div className={styles['search-input']}>
+      <Input 
+        type="text" 
+        id='search' 
+        onChange={(event) => handleChange(event)} 
+      />
     </div>
+  </div>
   )
 }
 
