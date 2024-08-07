@@ -1,11 +1,16 @@
 
 import { Link } from 'react-router-dom'
-import { HStack, Button, Box } from '@chakra-ui/react';
 import { useContext } from 'react';
 import UserIdContext from '../contexts/UserIdContext';
+import { HStack, Box, Button, useDisclosure } from '@chakra-ui/react';
+import Login from '../forms/Login'
+import ModalContainer from '../modals/ModalContainer';
+import Signup from '../forms/Signup'
 
 const Nav = () => {
   const { userId, setUserId } = useContext(UserIdContext);
+  const { isOpen: isLoginOpen, onOpen: onLoginOpen, onClose: onLoginClose } = useDisclosure();
+  const { isOpen: isSignupOpen, onOpen: onSignupOpen, onClose: onSignupClose } = useDisclosure();
 
   const logout = () => {
     setUserId(null)
@@ -20,18 +25,21 @@ const Nav = () => {
           
          {!userId ? (
           <>
-             <Link to={'/login'}><Button variant='link' colorScheme='brand'>Log in</Button></Link>
-             <Link to={'/signup'}><Button variant='link' colorScheme='brand'>Sign up</Button></Link>
+             <Button variant='link' colorScheme='brand' onClick={onLoginOpen}>Log in</Button>
+             <Button variant='link' colorScheme='brand' onClick={onSignupOpen}>Sign up</Button>
           </>
          ) : (
             <>
               <Link to={'/bookshelf'}><Button variant='link' colorScheme='brand'>Bookshelf</Button></Link>
-              <Button variant='link' colorScheme='brand' onClick={logout}>Sair</Button>
+              <Button variant='link' colorScheme='brand' onClick={logout}>Log out</Button>
             </>
          )}
         </HStack>
       </Box>
-        
+
+      <ModalContainer Component={Login} text={'Log in'} isOpen={isLoginOpen} onClose={onLoginClose}></ModalContainer>
+      <ModalContainer Component={Signup} text={'Sign up'} isOpen={isSignupOpen} onClose={onSignupClose}></ModalContainer>
+ 
      
     </nav>
   )

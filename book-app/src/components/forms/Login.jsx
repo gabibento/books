@@ -1,19 +1,17 @@
 import React from 'react'
 import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import UserIdContext from '../contexts/UserIdContext';
 import { db } from '../../firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({onClose}) => {
 
     const [user, setUser] = useState({
         email: '',
         password: ''
     })
     const { userId, setUserId } = useContext(UserIdContext);
-    const navigate = useNavigate()
 
     useEffect(() => {
         if (userId) {
@@ -43,7 +41,7 @@ const Login = () => {
                     console.log(docId)
                 })
                 console.log("User logged with id: " + userId)
-                navigate('/')
+                onClose()
             }else{
                 console.log("Invalid email or password")
             }

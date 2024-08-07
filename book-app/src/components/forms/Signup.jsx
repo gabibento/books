@@ -1,10 +1,9 @@
 import { useState, useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebaseConfig'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 import UserIdContext from '../contexts/UserIdContext'
 
-const Signup = () => {
+const Signup = ({onClose}) => {
 
     const [user, setUser] = useState({
         name: '',
@@ -12,7 +11,6 @@ const Signup = () => {
         password: ''
     })
     const { userId, setUserId } = useContext(UserIdContext);
-    const navigate = useNavigate()
 
     useEffect(() => {
         if (userId) {
@@ -48,7 +46,7 @@ const Signup = () => {
         e.preventDefault()
         const docId = await addUser()
         console.log("User added with id: " + docId + userId)
-        navigate("/")
+        onClose()
     }
 
 
