@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import UserIdContext from './contexts/UserIdContext'
 import SelectBookshelf from './SelectBookshelf'
-import { Card, CardBody, CardFooter, Stack, Text, Image, Heading, SimpleGrid, Badge } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, Stack, Text, Image, Heading, SimpleGrid, Badge, AspectRatio } from '@chakra-ui/react'
 import styles from './BookCard.module.css'
 
 const BookCard = ({books}) => {
@@ -40,11 +40,9 @@ const BookCard = ({books}) => {
           <div key={index}>
             <Card  maxW={['65%', '60%', '70%', '60%']} minW="250px" m="auto" className={styles['card-custom']} >
                 <CardBody onClick={() => navigateBook(book.id)} className={styles['card-body']}>
-                  <Image
-                    src={book.cover}
-                    alt='book cover'
-                    className={styles['card-image']}
-                  />
+                  <AspectRatio ratio={14/15}>
+                    <Image src={book.cover} alt='book cover' objectFit='cover' borderRadius='lg'/>
+                  </AspectRatio>
                   <Stack mt='4' spacing='2'>
                     <Heading fontSize='1em' minHeight="2.85em">{book.title}</Heading>
                     <Text minHeight='1em'>{book.author}</Text>
