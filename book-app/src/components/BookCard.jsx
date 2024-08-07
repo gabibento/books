@@ -38,16 +38,14 @@ const BookCard = ({books}) => {
        <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(16em, 4fr))'>
         {books.map((book, index) => (
           <div key={index}>
-          
-            <Card maxW='sm' className={styles['card-custom']} >
-                <CardBody onClick={() => navigateBook(book.id)}>
+            <Card  maxW={['65%', '60%', '70%', '60%']} minW="250px" m="auto" className={styles['card-custom']} >
+                <CardBody onClick={() => navigateBook(book.id)} className={styles['card-body']}>
                   <Image
                     src={book.cover}
                     alt='book cover'
-                    boxSize='20em'
                     className={styles['card-image']}
                   />
-                  <Stack mt='6' spacing='2'>
+                  <Stack mt='4' spacing='2'>
                     <Heading fontSize='1em' minHeight="2.85em">{book.title}</Heading>
                     <Text minHeight='1em'>{book.author}</Text>
                     <Badge minHeight='1em' colorScheme={getBadgeColor(book.genre)} size='sm' width='fit-content'>{book.genre}</Badge>
