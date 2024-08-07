@@ -5,7 +5,8 @@
 }
   
 .search-input {
-    width: 85%;
+    width: 80%;
+    max-width: 30em;
     display: flex;
     justify-content: space-around; 
 }
