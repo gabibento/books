@@ -1,7 +1,11 @@
-.search-input{
-    width: 50%;
-    height: 2em;
-    margin: 2em;
+.container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+  
+.search-input {
+    width: 85%;
+    display: flex;
+    justify-content: space-around; 
 }

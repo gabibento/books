@@ -27,6 +27,8 @@ const Search = ({books, setBooks, allbooks}) => {
         type="text" 
         id='search' 
         onChange={(event) => handleChange(event)} 
+        fontSize={{ base: '12px', sm: '14px', md: '16px', lg: '18px' }}
+        height={{ base: '1.5em', sm: '1.75em', md: '2m', lg: '2em'}}
       />
     </div>
   </div>

@@ -15,27 +15,26 @@ const Nav = () => {
   const logout = () => {
     setUserId(null)
   }
+  const fontSize = { base: '15px', sm: '14px', md: '16px', lg: '18px' };
 
   return (
     <nav>
        
-      <Box p='4'>
-        <HStack spacing={{ base: '1em', sm: '2em', md: '4em', lg: '8em' }}>
-          <Link to={'/'}><Button variant='link' colorScheme='brand'>Home</Button></Link>
+        <HStack spacing={{ base: '1em', sm: '2em', md: '3em', lg: '5em' }}>
+          <Link to={'/'}><Button variant='link' colorScheme='brand' fontSize={fontSize}>Home</Button></Link>
           
          {!userId ? (
           <>
-             <Button variant='link' colorScheme='brand' onClick={onLoginOpen}>Log in</Button>
-             <Button variant='link' colorScheme='brand' onClick={onSignupOpen}>Sign up</Button>
+             <Button variant='link' colorScheme='brand' onClick={onLoginOpen} fontSize={fontSize}>Log in</Button>
+             <Button variant='link' colorScheme='brand' onClick={onSignupOpen} fontSize={fontSize}>Sign up</Button>
           </>
          ) : (
             <>
-              <Link to={'/bookshelf'}><Button variant='link' colorScheme='brand'>Bookshelf</Button></Link>
-              <Button variant='link' colorScheme='brand' onClick={logout}>Log out</Button>
+              <Link to={'/bookshelf'}><Button variant='link' colorScheme='brand' fontSize={fontSize}>Bookshelf</Button></Link>
+              <Button variant='link' colorScheme='brand' onClick={logout} fontSize={fontSize}>Log out</Button>
             </>
          )}
         </HStack>
-      </Box>
 
       <ModalContainer Component={Login} text={'Log in'} isOpen={isLoginOpen} onClose={onLoginClose}></ModalContainer>
       <ModalContainer Component={Signup} text={'Sign up'} isOpen={isSignupOpen} onClose={onSignupClose}></ModalContainer>

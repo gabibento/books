@@ -6,8 +6,8 @@ const NavMenu = ({books, setBooks, allbooks}) => {
 
   return (
     <div>
-         <Box p='4'>
-         <HStack spacing={{ base: '1em', sm: '2em', md: '4em', lg: '8em' }}>
+         <Box p={{ base: '2', sm: '3', md: '6', lg: '7'}}>
+         <HStack>
             <Nav></Nav>
             <Search books={books} setBooks={setBooks} allbooks={allbooks}></Search>
         </HStack>
