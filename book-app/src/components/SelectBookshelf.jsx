@@ -28,7 +28,7 @@ const SelectBookshelf = ({userId, bookId, book}) => {
   return (
     <>
     <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme='brand'>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme='brand' size='sm'>
         Add to bookshelf
       </MenuButton>
       <MenuList>
