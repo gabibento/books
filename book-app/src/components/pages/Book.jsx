@@ -35,13 +35,12 @@ const Book = () => {
   return (
     <div>
         <h2>{book.title}</h2>
-        <img src={book.cover} alt="" />
-        <p>{book.author}</p>
-        <p>{book.genre}</p>
+        <img src={book.thumbnail} alt="" />
+        <p>{book.authors}</p>
+        <p>{book.categories}</p>
         <p>book id: {book.id}</p>
         <SelectBookshelf userId={userId} bookId={book.id} book={book}></SelectBookshelf>
-        <a href={book.link}>Buy now</a>
-        <p>{book.synopsis}</p>
+        <p>{book.description}</p>
 
     </div>
   )

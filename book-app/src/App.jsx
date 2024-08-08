@@ -10,11 +10,16 @@ import NavMenu from "./components/NavMenu";
 import { useEffect, useState } from 'react';
 import { db } from './firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore';
+import { fetchBooks } from "./components/utils/fetchBooks";
 
 function App() {
 
   const [books, setBooks] = useState([])
-    const [allbooks, setAllbooks] = useState([])
+  const [allbooks, setAllbooks] = useState([])
+
+  useEffect(() => {
+    fetchBooks()
+  }, [])
   
     useEffect(() => {
         const fetchBooks = async () => {
@@ -38,7 +43,7 @@ function App() {
  
   return (
     <>
-   
+
     <Router>
     <NavMenu books={books} setBooks={setBooks} allbooks={allbooks}></NavMenu>
       <Routes>

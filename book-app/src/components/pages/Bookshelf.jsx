@@ -93,7 +93,7 @@ const Bookshelf = () => {
                         <ul onClick={() => navigateBook(book.id)}>
                             <li>{book.id}</li>
                             <li>{book.title}</li>
-                            <li><img src={book.cover} alt={book.title} /></li>
+                            <li><img src={book.thumbnail} alt={book.title} /></li>
                         </ul>
                         {bookshelf !== 'allbooks' && <button onClick={() => removeBook(book.docId, book.id)}>Remove</button>}
                     </div>
