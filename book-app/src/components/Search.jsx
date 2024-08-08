@@ -27,8 +27,9 @@ const Search = ({books, setBooks, allbooks}) => {
         type="text" 
         id='search' 
         onChange={(event) => handleChange(event)} 
-        fontSize={{ base: '12px', sm: '14px', md: '16px', lg: '18px' }}
+        fontSize={[ '12px', '14px', '16px', '18px' ]}
         height={['1.5em', '1.75em', '2m', '2em']}
+        focusBorderColor='brand.400'
       />
     </div>
   </div>
