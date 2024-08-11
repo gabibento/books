@@ -2,6 +2,10 @@ import { useState, useContext, useEffect } from 'react'
 import { db } from '../../firebaseConfig'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 import UserIdContext from '../contexts/UserIdContext'
+import InputForm from './InputForm'
+import ButtonForm from './ButtonForm'
+import { Box, Stack } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 const Signup = ({onClose}) => {
 
@@ -54,31 +58,27 @@ const Signup = ({onClose}) => {
    
     <form onSubmit={handleOnSubmit}>
         
-        <label htmlFor="name">Name</label>
-        <input type="text"
-        id='name'
-        name='name'
-        onChange={handleOnChange}
-        value={user.name}
-        required/>
+        <Stack spacing={'2'}>
+        <Box p={'2'}>
+            <label htmlFor="name">Name</label>
+            <InputForm type={'text'} id={'name'} value={user.name} onChange={handleOnChange}></InputForm>
+        </Box>
+        <Box p={'2'}>
+            <label htmlFor="email">Email</label>
+            <InputForm type={'email'} id={'email'} value={user.email} onChange={handleOnChange}></InputForm>
+        </Box>
+        <Box p={'2'}>
+            <label htmlFor="password">Password</label>
+            <InputForm type={'password'} id={'password'} value={user.password} onChange={handleOnChange}></InputForm>
 
-        <label htmlFor="email">Email</label>
-        <input type="email"
-        name='email'
-        id='email' 
-        onChange={handleOnChange}
-        value={user.email}
-        required/>
-
-        <label htmlFor="password">Password</label>
-        <input type="password"
-        id='password'
-        name='password' 
-        onChange={handleOnChange}
-        value={user.password}
-        required/>
-
-        <button type='submit'>Create account</button>
+        </Box>
+      
+        <ButtonForm text={'Sign up'}></ButtonForm>
+        <Box display={"flex"} justifyContent={"center"}>
+            <p>Don't have an account? <Link to={'/signup'}>Sign up</Link></p>
+        </Box>
+        
+       </Stack>
        
     </form>
   )

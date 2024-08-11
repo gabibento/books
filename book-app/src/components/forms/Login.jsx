@@ -4,6 +4,9 @@ import UserIdContext from '../contexts/UserIdContext';
 import { db } from '../../firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import InputForm from './InputForm';
+import ButtonForm from './ButtonForm';
+import { Stack, Box } from '@chakra-ui/react';
 
 const Login = ({onClose}) => {
 
@@ -53,23 +56,23 @@ const Login = ({onClose}) => {
 
   return (
     <form onSubmit={handleOnSubmit}>
-        <label htmlFor="email">Email</label>
-        <input type="email" 
-        id='email'
-        name='email'
-        value={user.email}
-        onChange={handleOnChange}
-        />
+       <Stack spacing={'2'}>
+        <Box p={'2'}>
+            <label htmlFor="email">Email</label>
+            <InputForm type={'email'} id={'email'} value={user.email} onChange={handleOnChange}></InputForm>
+        </Box>
+        <Box p={'2'}>
+            <label htmlFor="password">Password</label>
+            <InputForm type={'password'} id={'password'} value={user.password} onChange={handleOnChange}></InputForm>
 
-        <label htmlFor="password">Password</label>
-        <input type="password"
-        id='password'
-        name='password'
-        value={user.password}
-        onChange={handleOnChange} />
-
-        <button type='submit'>Log in</button>
-        <p>Don't have an account? <Link to={'/signup'}>Sign up</Link></p>
+        </Box>
+      
+        <ButtonForm text={'Log in'}></ButtonForm>
+        <Box display={"flex"} justifyContent={"center"}>
+            <p>Don't have an account? <Link to={'/signup'}>Sign up</Link></p>
+        </Box>
+        
+       </Stack>
     </form>
   )
 }
