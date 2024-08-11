@@ -1,5 +1,5 @@
 import { db } from "../../firebaseConfig"
-import { addDoc, collection, doc, getDocs, query, where } from "firebase/firestore"
+import { addDoc, collection, doc, getDocs, increment, query, updateDoc, where } from "firebase/firestore"
 
 export const addBook = async (userId, bookshelf, bookId, book, navigate) => {
 
@@ -26,6 +26,9 @@ export const addBook = async (userId, bookshelf, bookId, book, navigate) => {
         }
             await addDoc(collection(shelfRef, "books"), book)
             console.log("Book successfully added to shelf! " + bookId)
+
+            const bookDocRef = doc(db, "books", bookId); 
+            await updateDoc(bookDocRef, { popularityCount: increment(1) });
 
         }catch(e){
             console.error("Error adding book to shelf: " + e)

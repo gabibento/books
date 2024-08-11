@@ -9,7 +9,7 @@ import NavMenu from "./components/NavMenu";
 
 import { useEffect, useState } from 'react';
 import { db } from './firebaseConfig'
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { fetchBooks } from "./components/utils/fetchBooks";
 
 function App() {
@@ -17,10 +17,7 @@ function App() {
   const [books, setBooks] = useState([])
   const [allbooks, setAllbooks] = useState([])
 
-  useEffect(() => {
-    fetchBooks()
-  }, [])
-  
+ 
     useEffect(() => {
         const fetchBooks = async () => {
            try{
@@ -31,6 +28,8 @@ function App() {
                 bookData.id = doc.id
                 booksData.push(bookData)
             })
+            booksData.sort((a, b) => (b.popularityCount || 0) - (a.popularityCount || 0));
+            
             setBooks(booksData)
             setAllbooks(booksData)
            }catch(e){

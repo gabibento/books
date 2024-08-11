@@ -1,39 +1,48 @@
-import React from 'react';
-import { Input } from '@chakra-ui/react'
-import styles from './Search.module.css'
+import React, { useState, useEffect } from 'react';
+import { Input } from '@chakra-ui/react';
+import styles from './Search.module.css';
+import { fetchBooks } from './utils/fetchBooks';
 
-const Search = ({books, setBooks, allbooks}) => {
+const Search = ({ books, setBooks, allbooks }) => {
+    const [query, setQuery] = useState('');
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            if (query) {
+                fetchBooks(query);
+            }
+        }, 5000);
+
+        return () => clearTimeout(handler);
+    }, [query]);
 
     const handleChange = (event) => {
-        //converts input to lowercase for case-insensitive matching
-        const query = event.target.value.toLowerCase();
-      
-        if (query) {
-            //filters books based on the query in the title
-            const filteredBooks = books.filter(book => book.title.toLowerCase().includes(query));
-            
-            //updates the displayed books with the filtered list
+        const newQuery = event.target.value.toLowerCase();
+        setQuery(newQuery);
+
+        if (newQuery) {
+            const filteredBooks = books.filter(book => book.title.toLowerCase().includes(newQuery));
             setBooks(filteredBooks);
         } else {
-            //restores the full book list if the query is empty
-          setBooks(allbooks)
+            setBooks(allbooks);
         }
-    }
+    };
 
-  return (
-    <div className={styles.container}>
-    <div className={styles['search-input']}>
-      <Input 
-        type="text" 
-        id='search' 
-        onChange={(event) => handleChange(event)} 
-        fontSize={[ '12px', '14px', '16px', '18px' ]}
-        height={['1.5em', '1.75em', '2m', '2em']}
-        focusBorderColor='brand.400'
-      />
-    </div>
-  </div>
-  )
+    return (
+        <div className={styles.container}>
+            <div className={styles['search-input']}>
+                <Input
+                    type="text"
+                    id='search'
+                    value={query}
+                    onChange={handleChange}
+                    fontSize={[ '12px', '14px', '16px', '18px' ]}
+                    height={['1.5em', '1.75em', '2m', '2em']}
+                    focusBorderColor='brand.400'
+                />
+            </div>
+        </div>
+    );
 }
 
 export default Search;
