@@ -3,18 +3,20 @@ import { useState, useContext, useEffect } from 'react';
 import UserIdContext from '../contexts/UserIdContext';
 import { db } from '../../firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
+import Signup from './Signup';
 import InputForm from './InputForm';
 import ButtonForm from './ButtonForm';
-import { Stack, Box } from '@chakra-ui/react';
+import { Stack, Box, useDisclosure, Button } from '@chakra-ui/react';
+import ModalContainer from '../modals/ModalContainer';
 
-const Login = ({onClose}) => {
+const Login = ({close}) => {
 
     const [user, setUser] = useState({
         email: '',
         password: ''
     })
     const { userId, setUserId } = useContext(UserIdContext);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     useEffect(() => {
         if (userId) {
@@ -44,7 +46,7 @@ const Login = ({onClose}) => {
                     console.log(docId)
                 })
                 console.log("User logged with id: " + userId)
-                onClose()
+                close()
             }else{
                 console.log("Invalid email or password")
             }
@@ -59,20 +61,22 @@ const Login = ({onClose}) => {
        <Stack spacing={'2'}>
         <Box p={'2'}>
             <label htmlFor="email">Email</label>
-            <InputForm type={'email'} id={'email'} value={user.email} onChange={handleOnChange}></InputForm>
+            <InputForm type={'email'} id={'email'} name={'email'}value={user.email} onChange={handleOnChange}></InputForm>
         </Box>
         <Box p={'2'}>
             <label htmlFor="password">Password</label>
-            <InputForm type={'password'} id={'password'} value={user.password} onChange={handleOnChange}></InputForm>
+            <InputForm type={'password'} id={'password'} name={'password'} value={user.password} onChange={handleOnChange}></InputForm>
 
         </Box>
       
         <ButtonForm text={'Log in'}></ButtonForm>
         <Box display={"flex"} justifyContent={"center"}>
-            <p>Don't have an account? <Link to={'/signup'}>Sign up</Link></p>
+            <p>Don't have an account? <Button onClick={onOpen} colorScheme='brand' variant={'link'}>Sign up</Button></p>
         </Box>
         
        </Stack>
+
+       <ModalContainer Component={Signup} text={'Sign up'} isOpen={isOpen} onClose={onClose}></ModalContainer>
     </form>
   )
 }

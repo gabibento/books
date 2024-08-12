@@ -4,10 +4,11 @@ import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 import UserIdContext from '../contexts/UserIdContext'
 import InputForm from './InputForm'
 import ButtonForm from './ButtonForm'
-import { Box, Stack } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Box, Stack, useDisclosure, Button } from '@chakra-ui/react'
+import ModalContainer from '../modals/ModalContainer'
+import Login from './Login'
 
-const Signup = ({onClose}) => {
+const Signup = ({close}) => {
 
     const [user, setUser] = useState({
         name: '',
@@ -15,6 +16,7 @@ const Signup = ({onClose}) => {
         password: ''
     })
     const { userId, setUserId } = useContext(UserIdContext);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     useEffect(() => {
         if (userId) {
@@ -50,7 +52,7 @@ const Signup = ({onClose}) => {
         e.preventDefault()
         const docId = await addUser()
         console.log("User added with id: " + docId + userId)
-        onClose()
+        close()
     }
 
 
@@ -61,24 +63,26 @@ const Signup = ({onClose}) => {
         <Stack spacing={'2'}>
         <Box p={'2'}>
             <label htmlFor="name">Name</label>
-            <InputForm type={'text'} id={'name'} value={user.name} onChange={handleOnChange}></InputForm>
+            <InputForm type={'text'} id={'name'} name={'name'} value={user.name} onChange={handleOnChange}></InputForm>
         </Box>
         <Box p={'2'}>
             <label htmlFor="email">Email</label>
-            <InputForm type={'email'} id={'email'} value={user.email} onChange={handleOnChange}></InputForm>
+            <InputForm type={'email'} id={'email'} name={'email'} value={user.email} onChange={handleOnChange}></InputForm>
         </Box>
         <Box p={'2'}>
             <label htmlFor="password">Password</label>
-            <InputForm type={'password'} id={'password'} value={user.password} onChange={handleOnChange}></InputForm>
+            <InputForm type={'password'} id={'password'} name={'password'} value={user.password} onChange={handleOnChange}></InputForm>
 
         </Box>
       
         <ButtonForm text={'Sign up'}></ButtonForm>
         <Box display={"flex"} justifyContent={"center"}>
-            <p>Don't have an account? <Link to={'/signup'}>Sign up</Link></p>
+            <p>Don't have an account? <Button onClick={onOpen} colorScheme='brand' variant={'link'}>Sign up</Button></p>
         </Box>
         
        </Stack>
+
+       <ModalContainer Component={Login} isOpen={isOpen} onClose={onClose} text={"Log in"}></ModalContainer>
        
     </form>
   )

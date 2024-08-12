@@ -10,7 +10,7 @@ const ModalContainer = ({Component, text, isOpen, onClose}) => {
       <ModalHeader textAlign={"center"} fontSize={"1.5em"} color='brand.500'>{text}</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-       {<Component onClose={onClose}/>}
+       {<Component close={onClose}/>}
       </ModalBody>
     </ModalContent>
   </Modal>
