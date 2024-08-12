@@ -1,7 +1,7 @@
 import React from 'react'
-import Nav from './Nav'
 import BookCard from '../BookCard'
 import { useNavigate } from 'react-router-dom'
+import { Heading, Box } from '@chakra-ui/react'
 
 const Home = ({books}) => {
   const navigate = useNavigate()
@@ -12,12 +12,11 @@ const Home = ({books}) => {
   }
   return (
     <div>
-
-        <ul>
-          <li id='romance' onClick={navigateGenre}>Romance</li>
-          <li id='fantasy' onClick={navigateGenre}>Fantasy</li>
-        </ul>
-        <BookCard books={books}></BookCard>
+      <Box pl={[ '2', '3', '6', '7']} mb={'4'}>
+        <Heading as={"h1"} color={"brand.500"} size={'lg'}>Books for you</Heading>
+      </Box>
+      <BookCard books={books}></BookCard>
+      
     </div>
   )
 }

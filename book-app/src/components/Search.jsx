@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Input } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import styles from './Search.module.css';
 import { fetchBooks } from './utils/fetchBooks';
+import { SearchIcon } from '@chakra-ui/icons';
 
 const Search = ({ books, setBooks, allbooks }) => {
     const [query, setQuery] = useState('');
@@ -31,15 +32,23 @@ const Search = ({ books, setBooks, allbooks }) => {
     return (
         <div className={styles.container}>
             <div className={styles['search-input']}>
-                <Input
-                    type="text"
-                    id='search'
-                    value={query}
-                    onChange={handleChange}
-                    fontSize={[ '12px', '14px', '16px', '18px' ]}
-                    height={['1.5em', '1.75em', '2m', '2em']}
-                    focusBorderColor='brand.400'
-                />
+                <InputGroup>
+                    <InputLeftElement  pointerEvents="none" height="100%" alignItems="center" >
+                        <SearchIcon color={'brand.400'}></SearchIcon>
+                    </InputLeftElement>
+                    <Input
+                        type="text"
+                        id='search'
+                        value={query}
+                        onChange={handleChange}
+                        fontSize={[ '12px', '14px', '16px', '18px' ]}
+                        height={['1.5em', '1.75em', '2m', '2em']}
+                        borderColor={'brand.300'}
+                        focusBorderColor='brand.400'
+                        
+                    />
+                </InputGroup>
+              
             </div>
         </div>
     );
