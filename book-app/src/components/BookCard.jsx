@@ -40,7 +40,7 @@ const BookCard = ({books}) => {
           <div key={index}>
             <Card maxW={['65%', '60%', '70%', '60%']} minW="250px" m="auto" className={styles['card-custom']} >
                 <CardBody onClick={() => navigateBook(book.id)} className={styles['card-body']}>
-                  <AspectRatio ratio={14/15}>
+                  <AspectRatio ratio={4/5}>
                     <Image src={book.thumbnail} alt='book cover' borderRadius='lg'/>
                   </AspectRatio>
                   <Stack mt='4' spacing='2'>

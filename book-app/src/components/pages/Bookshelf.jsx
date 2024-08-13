@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebaseConfig'
 import { getDocs, collection, deleteDoc, query, where, doc } from 'firebase/firestore'
 import UserIdContext from '../contexts/UserIdContext'
-import Search from '../Search'
 import { Tabs, TabList, Tab } from '@chakra-ui/react'
 
 const Bookshelf = () => {
@@ -73,7 +72,6 @@ const Bookshelf = () => {
 
   return (
     <div>
-      <Search books={books} setBooks={setBooks} allbooks={allbooks}></Search>
 
       <Tabs isFitted variant='enclosed' onChange={handleTabChange}>
         <TabList mb='1em'>
