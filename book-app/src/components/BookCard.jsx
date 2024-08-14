@@ -6,7 +6,7 @@ import SelectBookshelf from './SelectBookshelf'
 import { Card, CardBody, CardFooter, Stack, Text, Image, Heading, SimpleGrid, Badge, AspectRatio, Box } from '@chakra-ui/react'
 import styles from './BookCard.module.css'
 
-const BookCard = ({books}) => {
+const BookCard = ({books, component, bookshelf, removeBook}) => {
 
     const navigate = useNavigate()
     const { userId } = useContext(UserIdContext);
@@ -50,7 +50,12 @@ const BookCard = ({books}) => {
                   </Stack>
                 </CardBody>
                 <CardFooter mt='0' pt='0'>
-                  <SelectBookshelf userId={userId} bookId={book.id} book={book}></SelectBookshelf>
+                  {component == "bookshelf" ? ( 
+                       bookshelf !== 'allbooks' && <button onClick={() => removeBook(book.docId, book.id)}>Remove</button>
+                    ) : (
+                      <SelectBookshelf userId={userId} bookId={book.id} book={book}></SelectBookshelf>
+                    )}
+                 
                 </CardFooter>
               </Card>
            

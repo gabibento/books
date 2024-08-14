@@ -4,6 +4,7 @@ import { db } from '../../firebaseConfig'
 import { getDocs, collection, deleteDoc, query, where, doc } from 'firebase/firestore'
 import UserIdContext from '../contexts/UserIdContext'
 import { Tabs, TabList, Tab } from '@chakra-ui/react'
+import BookCard from '../BookCard'
 
 const Bookshelf = () => {
     const [books, setBooks] = useState([])
@@ -81,23 +82,19 @@ const Bookshelf = () => {
           <Tab>Read</Tab>
         </TabList>
       </Tabs>
-      
-         <div>
-            {books.length === 0 ? (
-                <p>No books found</p>
-            ) : (
-                books.map((book, index) => (
-                    <div key={index}>
-                        <ul onClick={() => navigateBook(book.id)}>
-                            <li>{book.id}</li>
-                            <li>{book.title}</li>
-                            <li><img src={book.thumbnail} alt={book.title} /></li>
-                        </ul>
-                        {bookshelf !== 'allbooks' && <button onClick={() => removeBook(book.docId, book.id)}>Remove</button>}
-                    </div>
-                ))
-            )}
+
+     
+      <div>
+          {books.length === 0 ? (
+          <p>No books found</p>
+        ) : (
+          
+        <div>
+          <BookCard books={books} component={"bookshelf"} bookshelf={bookshelf} removeBook={removeBook}></BookCard>
         </div>
+          
+        )}
+      </div>
     </div>
   )
 }
