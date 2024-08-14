@@ -10,6 +10,16 @@ const Book = () => {
     const [book, setBook] = useState(null)
     const { userId } = useContext(UserIdContext);
 
+    const cleanDescription = (description) => {
+    
+        description = description.replace(/<\/p>/g, '\n');
+        description = description.replace(/<br\s*\/?>/g, '\n');
+        description = description.replace(/<p>/g, '');
+
+        const tempElement = document.createElement("div");
+        tempElement.innerHTML = description;
+        return tempElement.textContent || tempElement.innerText || "";
+    };
     useEffect(() => {
         const fetchBook = async () => {
            try{
@@ -18,6 +28,11 @@ const Book = () => {
             data.id = id
 
             if(bookDoc.exists){
+
+                if (data.description) {
+                    data.description = cleanDescription(data.description);
+                }
+                
                 setBook(data)
             }else{
                 console.log('Book does not exist');
@@ -40,7 +55,7 @@ const Book = () => {
         <p>{book.categories}</p>
         <p>book id: {book.id}</p>
         <SelectBookshelf userId={userId} bookId={book.id} book={book}></SelectBookshelf>
-        <p>{book.description}</p>
+        <pre>{book.description}</pre>
 
     </div>
   )
