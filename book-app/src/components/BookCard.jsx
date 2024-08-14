@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import UserIdContext from './contexts/UserIdContext'
 import SelectBookshelf from './SelectBookshelf'
-import { Card, CardBody, CardFooter, Stack, Text, Image, Heading, SimpleGrid, Badge, AspectRatio, Box } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, Stack, Text, Image, Heading, SimpleGrid, Badge, AspectRatio, Box, Button } from '@chakra-ui/react'
 import styles from './BookCard.module.css'
 
 const BookCard = ({books, component, bookshelf, removeBook}) => {
@@ -51,7 +51,7 @@ const BookCard = ({books, component, bookshelf, removeBook}) => {
                 </CardBody>
                 <CardFooter mt='0' pt='0'>
                   {component == "bookshelf" ? ( 
-                       bookshelf !== 'allbooks' && <button onClick={() => removeBook(book.docId, book.id)}>Remove</button>
+                       bookshelf !== 'allbooks' && <Button onClick={() => removeBook(book.docId, book.id)}>Remove</Button>
                     ) : (
                       <SelectBookshelf userId={userId} bookId={book.id} book={book}></SelectBookshelf>
                     )}

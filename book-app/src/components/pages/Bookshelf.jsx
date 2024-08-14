@@ -5,6 +5,7 @@ import { getDocs, collection, deleteDoc, query, where, doc } from 'firebase/fire
 import UserIdContext from '../contexts/UserIdContext'
 import { Tabs, TabList, Tab } from '@chakra-ui/react'
 import BookCard from '../BookCard'
+import { Heading, Box, Button } from '@chakra-ui/react'
 
 const Bookshelf = () => {
     const [books, setBooks] = useState([])
@@ -73,6 +74,10 @@ const Bookshelf = () => {
 
   return (
     <div>
+
+      <Box textAlign={"center"} mb={'4'} p={'4'}>
+        <Heading as={"h1"} color={"brand.500"} size={'lg'}>Bookshelf</Heading>
+      </Box>
 
       <Tabs isFitted variant='enclosed' onChange={handleTabChange}>
         <TabList mb='1em'>
