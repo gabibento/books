@@ -43,34 +43,20 @@ export const fetchBookDetailsById = async (volumeId) => {
         // Verifica se o livro já existe no Firestore
         const existingBooksSnapshot = await getDocs(query(booksCollection, where('title', '==', book.title)));
 
-          // Seleciona o melhor link de imagem disponível
-          let thumbnailUrl = '';
-          if (book.imageLinks?.extraLarge) {
-              thumbnailUrl = book.imageLinks.extraLarge;
-          } else if (book.imageLinks?.large) {
-              thumbnailUrl = book.imageLinks.large;
-          } else if (book.imageLinks?.medium) {
-              thumbnailUrl = book.imageLinks.medium;
-          } else if (book.imageLinks?.thumbnail) {
-              thumbnailUrl = book.imageLinks.thumbnail;
-          }
-
-          // Log do link de imagem selecionado
-          console.log(`Usando imagem para o livro "${book.title}": ${thumbnailUrl}`);
-
+ 
         if (existingBooksSnapshot.empty) {
             // Dados do livro a serem adicionados ao Firestore
             const bookData = {
                 title: book.title,
                 authors: book.authors ? book.authors.join(', ') : 'Autor desconhecido',
                 description: book.description || 'Sem descrição',
-                thumbnail: thumbnailUrl || 'Imagem não disponível',
+                thumbnail: book.imageLinks?.large || book.imageLinks?.medium || book.imageLinks?.thumbnail || 'Imagem não disponível',
                 publishedDate: book.publishedDate || 'Data desconhecida',
                 pageCount: book.pageCount || 0,
                 categories: book.categories || [],
             };
 
-            // Adiciona o livro ao Firestore
+
             await addDoc(booksCollection, bookData);
             console.log(`Livro "${book.title}" adicionado ao Firestore`);
         } else {
