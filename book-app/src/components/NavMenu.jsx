@@ -7,7 +7,7 @@ const NavMenu = ({books, setBooks, allbooks}) => {
   return (
     <div>
          <Box p={[ '2', '3', '6', '7']}>
-          <HStack>
+          <HStack  display={['block', 'flex', 'flex', 'flex']}>
               <Nav></Nav>
               <Search books={books} setBooks={setBooks} allbooks={allbooks}></Search>
           </HStack>

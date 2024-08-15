@@ -15,12 +15,15 @@ const Nav = () => {
   const logout = () => {
     setUserId(null)
   }
-  const fontSize = { base: '15px', sm: '14px', md: '16px', lg: '18px' };
+  const fontSize = { base: '16px', sm: '16px', md: '16px', lg: '18px' };
 
   return (
     <nav>
        
-        <HStack spacing={{ base: '1em', sm: '2em', md: '3em', lg: '5em' }}>
+        <HStack spacing={{ base: '3.5em', sm: '2em', md: '3em', lg: '5em' }} m={['4', '2', '0', '0']}  sx={{
+            display: 'flex',
+            justifyContent: ['center', 'flex-end', 'flex-end', 'flex-end']
+        }}>
           <Link to={'/'}><Button variant='link' colorScheme='brand' fontSize={fontSize}>Home</Button></Link>
           
          {!userId ? (

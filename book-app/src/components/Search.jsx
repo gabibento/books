@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement, Box } from '@chakra-ui/react';
 import styles from './Search.module.css';
 import { fetchBooks } from './utils/fetchBooks';
 import { SearchIcon } from '@chakra-ui/icons';
@@ -30,7 +30,11 @@ const Search = ({ books, setBooks, allbooks }) => {
     };
 
     return (
-        <div className={styles.container}>
+        <Box className={styles.container}
+        sx={{
+            display: 'flex',
+            justifyContent: ['center', 'flex-end', 'flex-end', 'flex-end']
+        }}>
             <div className={styles['search-input']}>
                 <InputGroup>
                     <InputLeftElement  pointerEvents="none" height="100%" alignItems="center" >
@@ -42,15 +46,14 @@ const Search = ({ books, setBooks, allbooks }) => {
                         value={query}
                         onChange={handleChange}
                         fontSize={[ '12px', '14px', '16px', '18px' ]}
-                        height={['1.5em', '1.75em', '2m', '2em']}
+                        height={['2em', '2em', '2m', '2em']}
                         borderColor={'brand.300'}
                         focusBorderColor='brand.400'
-                        
                     />
                 </InputGroup>
               
             </div>
-        </div>
+        </Box>
     );
 }
 
