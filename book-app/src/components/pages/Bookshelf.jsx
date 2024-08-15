@@ -1,18 +1,16 @@
 import { useState, useEffect, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebaseConfig'
 import { getDocs, collection, deleteDoc, query, where, doc } from 'firebase/firestore'
 import UserIdContext from '../contexts/UserIdContext'
 import { Tabs, TabList, Tab } from '@chakra-ui/react'
 import BookCard from '../BookCard'
-import { Heading, Box, Button } from '@chakra-ui/react'
+import { Heading, Box } from '@chakra-ui/react'
 
 const Bookshelf = () => {
     const [books, setBooks] = useState([])
     const [allbooks, setAllbooks] = useState([])
     const [bookshelf, setBookshelf] = useState('allbooks')
     const { userId } = useContext(UserIdContext)
-    const navigate = useNavigate()
 
     const fetchBooks = async () => {
       if(userId){
@@ -31,7 +29,7 @@ const Bookshelf = () => {
         }
       }else{
         console.log("User not defined")
-        navigate('/login')
+      
       }
     }
 
@@ -64,9 +62,7 @@ const Bookshelf = () => {
         console.error('User ID or bookshelf not defined')
     }
    }
-   const navigateBook = (bookId) => {
-    navigate(`/book/${bookId}`)
-   }
+
    const handleTabChange = (index) => {
     const tabs = ['allbooks', 'toberead', 'reading', 'read'];
     setBookshelf(tabs[index]);
@@ -79,7 +75,7 @@ const Bookshelf = () => {
         <Heading as={"h1"} color={"brand.500"} size={'lg'}>Bookshelf</Heading>
       </Box>
 
-      <Tabs isFitted variant='enclosed' onChange={handleTabChange}>
+      <Tabs isFitted variant='enclosed' onChange={handleTabChange} colorScheme='brand' ml={'10'} mr={'10'}>
         <TabList mb='1em'>
           <Tab>All</Tab>
           <Tab>To be read</Tab>
@@ -88,18 +84,18 @@ const Bookshelf = () => {
         </TabList>
       </Tabs>
 
-     
       <div>
-          {books.length === 0 ? (
+        {books.length === 0 ? (
           <p>No books found</p>
         ) : (
-          
-        <div>
-          <BookCard books={books} component={"bookshelf"} bookshelf={bookshelf} removeBook={removeBook}></BookCard>
-        </div>
-          
-        )}
+            
+          <div>
+            <BookCard books={books} component={"bookshelf"} bookshelf={bookshelf} removeBook={removeBook}></BookCard>
+          </div>
+            
+          )}
       </div>
+     
     </div>
   )
 }

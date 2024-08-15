@@ -51,7 +51,7 @@ const BookCard = ({books, component, bookshelf, removeBook}) => {
                 </CardBody>
                 <CardFooter mt='0' pt='0'>
                   {component == "bookshelf" ? ( 
-                       bookshelf !== 'allbooks' && <Button onClick={() => removeBook(book.docId, book.id)}>Remove</Button>
+                       bookshelf !== 'allbooks' && <Button onClick={() => removeBook(book.docId, book.id)} colorScheme='brand'>Remove</Button>
                     ) : (
                       <SelectBookshelf userId={userId} bookId={book.id} book={book}></SelectBookshelf>
                     )}
