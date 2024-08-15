@@ -4,13 +4,16 @@ import { getDocs, collection, deleteDoc, query, where, doc } from 'firebase/fire
 import UserIdContext from '../contexts/UserIdContext'
 import { Tabs, TabList, Tab } from '@chakra-ui/react'
 import BookCard from '../BookCard'
-import { Heading, Box } from '@chakra-ui/react'
+import { Heading, Box, useDisclosure } from '@chakra-ui/react'
+import ModalContainer from '../modals/ModalContainer'
+import Login from '../forms/Login'
 
 const Bookshelf = () => {
     const [books, setBooks] = useState([])
     const [allbooks, setAllbooks] = useState([])
     const [bookshelf, setBookshelf] = useState('allbooks')
     const { userId } = useContext(UserIdContext)
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const fetchBooks = async () => {
       if(userId){
@@ -29,7 +32,7 @@ const Bookshelf = () => {
         }
       }else{
         console.log("User not defined")
-      
+        onOpen()
       }
     }
 
@@ -95,6 +98,8 @@ const Bookshelf = () => {
             
           )}
       </div>
+
+      <ModalContainer Component={Login} isOpen={isOpen} onClose={onClose} text={"Log in"}></ModalContainer>
      
     </div>
   )

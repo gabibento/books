@@ -1,7 +1,7 @@
 import { db } from "../../firebaseConfig"
 import { addDoc, collection, doc, getDocs, increment, query, updateDoc, where } from "firebase/firestore"
 
-export const addBook = async (userId, bookshelf, bookId, book, navigate) => {
+export const addBook = async (userId, bookshelf, bookId, book, onOpen) => {
 
    if(userId && bookshelf){
      //references the user's bookshelves collection
@@ -49,6 +49,6 @@ export const addBook = async (userId, bookshelf, bookId, book, navigate) => {
     }
    }else{
     console.log("User ID or bookshelf not defined")
-    navigate("/login")
+    onOpen()
    }
 }

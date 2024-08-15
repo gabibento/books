@@ -1,28 +1,19 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 import { addBook } from './utils/addBook';
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  Button,
-
-} from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList, MenuItem, Button, useDisclosure } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
+import ModalContainer from './modals/ModalContainer';
+import Login from './forms/Login';
 
 const SelectBookshelf = ({userId, bookId, book}) => {
 
-    const navigate = useNavigate()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
 
     const handleBookshelfChange = (bookshelf) => {
 
         if (bookshelf && book) {
-            addBook(userId, bookshelf, bookId, book, navigate);
+            addBook(userId, bookshelf, bookId, book, onOpen);
         }
     }
   return (
@@ -37,6 +28,8 @@ const SelectBookshelf = ({userId, bookId, book}) => {
         <MenuItem onClick={() => handleBookshelfChange('read')}>Read</MenuItem>
       </MenuList>
     </Menu>
+
+    <ModalContainer isOpen={isOpen} onClose={onClose} Component={Login} text={"Login"}></ModalContainer>
     </>
   )
 }
