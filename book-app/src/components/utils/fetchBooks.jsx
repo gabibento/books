@@ -60,7 +60,15 @@ export const fetchBookDetailsById = async (volumeId) => {
             let thumbnailUrl = book.imageLinks?.extraLarge || book.imageLinks?.large || book.imageLinks?.medium || book.imageLinks?.thumbnail;
             const firebaseImageUrl = thumbnailUrl ? await uploadImage(thumbnailUrl) : 'Imagem não disponível';
             console.log(firebaseImageUrl)
-            
+
+            const categories = ["fantasy", "romance", "science fiction", "mystery", "thriller", "biography", "history", "science", "self-help", "drama", "poetry", "horror", "adventure"];
+
+            const bookCategory = book.categories
+            .map(category => category.trim().toLowerCase()) 
+            .find(category => categories.some(c => category.includes(c))); 
+      
+            const selectedCategory = bookCategory ? categories.find(c => bookCategory.includes(c)) : null;
+        
             // Dados do livro a serem adicionados ao Firestore
             const bookData = {
                 title: book.title,
@@ -69,7 +77,7 @@ export const fetchBookDetailsById = async (volumeId) => {
                 thumbnail: firebaseImageUrl,
                 publishedDate: book.publishedDate || 'Data desconhecida',
                 pageCount: book.pageCount || 0,
-                categories: book.categories || [],
+                categories: selectedCategory,
             };
 
 
