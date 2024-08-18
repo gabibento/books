@@ -52,7 +52,7 @@ const Book = () => {
         <h2>{book.title}</h2>
         <img src={book.thumbnail} alt="" />
         <p>{book.authors}</p>
-        <p>{book.categories}</p>
+        <p>{book.category}</p>
         <p>book id: {book.id}</p>
         <SelectBookshelf userId={userId} bookId={book.id} book={book}></SelectBookshelf>
         <pre>{book.description}</pre>

@@ -77,7 +77,7 @@ export const fetchBookDetailsById = async (volumeId) => {
                 thumbnail: firebaseImageUrl,
                 publishedDate: book.publishedDate || 'Data desconhecida',
                 pageCount: book.pageCount || 0,
-                categories: selectedCategory,
+                category: selectedCategory,
             };
 
 

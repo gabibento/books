@@ -15,22 +15,30 @@ const BookCard = ({books, component, bookshelf, removeBook}) => {
         navigate(`/book/${bookId}`)
     }
 
-    // const getBadgeColor = (genre) => {
-    //   switch (genre.toLowerCase()) {
-    //     case 'romance':
-    //       return 'purple';
-    //     case 'fiction':
-    //       return 'blue';
-    //     case 'non-fiction':
-    //       return 'green';
-    //     case 'mystery':
-    //       return 'red';
-    //     case 'fantasy':
-    //       return 'yellow';
-    //     default:
-    //       return 'gray';
-    //   }
-    // };
+    const getBadgeColor = (genre) => {
+      if(genre){
+        switch (genre.toLowerCase()) {
+          case 'romance' || 'poetry':
+            return 'pink';
+          case 'science fiction' || 'science':
+            return 'blue';
+          case 'thriller' || 'horror':
+            return 'gray';
+          case 'mystery':
+            return 'red';
+          case 'fantasy' || 'adventure':
+            return '#B19CD9';
+          case 'biography':
+            return 'brown';
+          case 'history':
+            return 'green';
+          case 'drama':
+            return 'yellow'
+          default:
+            return 'gray';
+        }
+      }
+    }
     
 
   return (
@@ -46,7 +54,7 @@ const BookCard = ({books, component, bookshelf, removeBook}) => {
                   <Stack mt='4' spacing='2'>
                     <Heading fontSize='1em' minHeight="2.85em">{book.title}</Heading>
                     <Text minHeight='1em'>{book.authors}</Text>
-                    <Badge minHeight='1em' size='sm' width='fit-content'>{book.categories}</Badge>
+                    <Badge minHeight='1em' size='sm' width='fit-content' bgColor={getBadgeColor(book.category)}>{book.category}</Badge>
                   </Stack>
                 </CardBody>
                 <CardFooter mt='0' pt='0'>
