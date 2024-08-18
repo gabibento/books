@@ -1,9 +1,9 @@
-const express = require('express'); //node.js framework to create and manage http servers
-const cors = require('cors'); //Cross-Origin Resource Sharing
-const axios = require('axios'); //library that makes HTTP requests to servers
-const admin = require('firebase-admin');; //interact with Firebase from server environment to perform actions
-const { v4: uuidv4 } = require('uuid'); //generates unique identifiers (UUIDs)
-const serviceAccount = require('./book-9f561-firebase-adminsdk-g717f-44346011bc.json'); //imports the JSON file with the Firebase Admin SDK credentials
+import express from 'express'; //node.js framework to create and manage http servers
+import cors from 'cors'; //Cross-Origin Resource Sharing
+import axios from 'axios'; //library that makes HTTP requests to servers
+import admin from 'firebase-admin'; //interact with Firebase from server environment to perform actions
+import { v4 as uuidv4 } from 'uuid'; //generates unique identifiers (UUIDs)
+import serviceAccount from './book-9f561-firebase-adminsdk-g717f-44346011bc.json' assert { type: 'json' }; //imports the JSON file with the Firebase Admin SDK credentials
 
 const app = express();
 //Defines the port on which the server will run
