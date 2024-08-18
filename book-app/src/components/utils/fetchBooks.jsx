@@ -32,7 +32,7 @@ const searchBookByTitle = async (title) => {
 
 const uploadImage = async (imageUrl) => {
     try {
-        const response = await axios.post('http://localhost:5000/upload', { imageUrl });
+        const response = await axios.post('/api/server', { imageUrl });
         return response.data.imageUrl;
     } catch (error) {
         console.error('Erro ao fazer upload da imagem:', error);
