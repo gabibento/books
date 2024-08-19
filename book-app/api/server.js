@@ -3,7 +3,6 @@ import cors from 'cors'; //Cross-Origin Resource Sharing
 import axios from 'axios'; //library that makes HTTP requests to servers
 import admin from 'firebase-admin'; //interact with Firebase from server environment to perform actions
 import { v4 as uuidv4 } from 'uuid'; //generates unique identifiers (UUIDs)
-import serviceAccount from './book-9f561-firebase-adminsdk-g717f-44346011bc.json' assert { type: 'json' }; //imports the JSON file with the Firebase Admin SDK credentials
 
 const app = express();
 //Defines the port on which the server will run
@@ -16,9 +15,13 @@ app.use(express.json());
 
 //Initializes the Firebase Admin SDK with credentials and configures the storage bucket 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  storageBucket: 'book-9f561.appspot.com',
-})
+  credential: admin.credential.cert({
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  }),
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+});
 
 //Gets a reference to the Firebase storage bucket, which is used to upload and access files.
 const bucket = admin.storage().bucket();
