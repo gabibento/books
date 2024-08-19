@@ -27,7 +27,7 @@ admin.initializeApp({
 const bucket = admin.storage().bucket();
 
 //Sets a POST route to /upload. When this route is called, the code inside the block is executed.
-app.post('/upload', async (req, res) => {
+app.post('/api/server', async (req, res) => {
   try {
     //Gets the URL of the image sent in the request body
     const imageUrl = req.body.imageUrl;
