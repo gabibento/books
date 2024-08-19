@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { db } from '../../firebaseConfig';
 import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from '../../firebaseConfig'
 
 const searchBookByTitle = async (title) => {
     try {
@@ -61,14 +59,14 @@ export const fetchBookDetailsById = async (volumeId) => {
             const firebaseImageUrl = thumbnailUrl ? await uploadImage(thumbnailUrl) : 'Imagem não disponível';
             console.log(firebaseImageUrl)
 
-            const categories = ["fantasy", "romance", "science fiction", "mystery", "thriller", "biography", "history", "science", "self-help", "drama", "poetry", "horror", "adventure"];
+            const categories = ["fantasy", "romance", "science fiction", "mystery", "thriller", "biography", "history", "science", "self-help", "drama", "poetry", "horror", "adventure", "fiction", "non-fiction"];
 
             const bookCategory = book.categories
             .map(category => category.trim().toLowerCase()) 
             .find(category => categories.some(c => category.includes(c))); 
       
             const selectedCategory = bookCategory ? categories.find(c => bookCategory.includes(c)) : null;
-        
+
             // Dados do livro a serem adicionados ao Firestore
             const bookData = {
                 title: book.title,
