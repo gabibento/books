@@ -77,7 +77,7 @@ const Signup = ({close}) => {
       
         <ButtonForm text={'Sign up'}></ButtonForm>
         <Box display={"flex"} justifyContent={"center"}>
-            <p>Don't have an account? <Button onClick={onOpen} colorScheme='brand' variant={'link'}>Sign up</Button></p>
+            <p>Already have an account? <Button onClick={onOpen} colorScheme='brand' variant={'link'}>Log in</Button></p>
         </Box>
         
        </Stack>
